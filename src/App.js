@@ -17,48 +17,49 @@ const App = () => {
     const [unit, setUnit] = useState('metric');  
     const [temperature, setTemperature] = useState('');
     const [humidity, setHumidity] = useState('');
-    const [windSpeed, setWindSpeed] = useState({});
+    const [windSpeed, setWindSpeed] = useState([]);
 
     const API_key = `8f04b34cdf5219c2aeb1f106bfcd6583`;
     let API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}&units=metric`;
 
     const getCity = () => {
       navigator.geolocation.getCurrentPosition((position) => {
-        setLongitude(position.coords.longitude);
+       
         setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+    
       
         })
+          if (longitude && latitude) {
+
           axios.get(API_URL).then((response) => {
           setLocation(response.data.name);
-        },)
+          
+        },) }
     }
     
 
-    const getWeather = async () => {
+    const getWeather = async () => { 
       try {
 
+        if (longitude && latitude) { 
         const response = await axios.get(API_URL);
         setWeather([response.data]);
         setTemperature(weather[0].main.temp);
         setHumidity(weather[0].main.humidity)
         setWindSpeed(weather[0].wind.speed);
         console.log(response.data);
-        console.log(windSpeed);
-
+        console.log(windSpeed); 
+        }
       } catch (event) {
         console.log(event);        
       }
     } 
 
-
-  
-
     useEffect(() => { 
         getCity();
         getWeather();
                
-        
-       
      },[latitude, longitude])
 
 
@@ -92,9 +93,11 @@ const App = () => {
         <h1>{location}</h1>
         </div>
 
-        <h2>{temperature}C</h2>
+        <h2>{temperature}°C</h2>
+        <h2>Wind: {windSpeed}</h2>
         <h2>Humidity: {humidity}</h2>
-
+       
+ 
         <div className="today">
         <ForecastToday />
         </div>
