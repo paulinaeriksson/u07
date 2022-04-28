@@ -21,7 +21,8 @@ const App = () => {
     const [sunrise, setSunrise] = useState('');
 
     const API_key = `8f04b34cdf5219c2aeb1f106bfcd6583`;
-    let API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}&units=metric`;
+    let API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}&units=${unit}`;
+    const oppositeUnit = unit === "metric" ? "imperial" : "metric";
 
     const getCity = () => {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -45,7 +46,6 @@ const App = () => {
         if (longitude && latitude && weather) { 
         const response = await axios.get(API_URL);
         setWeather([response.data]);
-        console.log(response.data);
          if (weather) {
         setTemperature(weather[0].main.temp);
         setHumidity(weather[0].main.humidity)
@@ -64,7 +64,7 @@ const App = () => {
       }
     } 
 
-    console.log(sunrise, sunset);
+
     useEffect(() => { 
 
         getCity();
@@ -77,8 +77,21 @@ const App = () => {
        const changeUnit = (event) => {
         event.preventDefault();
         setUnit(event.target.value);
+        if (unit === "metric") {
+          const newTemperature = temperature * 1.8 + 32;
+          setTemperature(Math.round(newTemperature));
+          setUnit(oppositeUnit);
+        }
+   
+        if (unit === "imperial") {
+          const newTemperature = ((temperature - 32) * 5) / 9;
+          setTemperature(Math.round(newTemperature));
+          setUnit(oppositeUnit);
+        }
+  
         }; 
 
+        console.log(unit);
   return (
     <div className="app">
       <div className="container">
@@ -94,10 +107,12 @@ const App = () => {
     </div>
         <h1>{location}</h1>
         </div>
-
-        <h2>{temperature}°C</h2>
+      
+        <h2>{temperature}°{unit}</h2>
         <h2>Wind: {windSpeed}</h2>
         <h2>Humidity: {humidity}</h2>
+        <h2>Sunrise: {sunrise}</h2>
+        <h2>Sunset: {sunset}</h2>
        
  
         <div className="today">
