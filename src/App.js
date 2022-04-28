@@ -16,6 +16,8 @@ const App = () => {
     const [weather, setWeather] = useState({});
     const [unit, setUnit] = useState('metric');  
     const [temperature, setTemperature] = useState('');
+    const [humidity, setHumidity] = useState('');
+    const [windSpeed, setWindSpeed] = useState({});
 
     const API_key = `8f04b34cdf5219c2aeb1f106bfcd6583`;
     let API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}&units=metric`;
@@ -38,7 +40,10 @@ const App = () => {
         const response = await axios.get(API_URL);
         setWeather([response.data]);
         setTemperature(weather[0].main.temp);
-        console.log(temperature);
+        setHumidity(weather[0].main.humidity)
+        setWindSpeed(weather[0].wind.speed);
+        console.log(response.data);
+        console.log(windSpeed);
 
       } catch (event) {
         console.log(event);        
@@ -88,6 +93,7 @@ const App = () => {
         </div>
 
         <h2>{temperature}C</h2>
+        <h2>Humidity: {humidity}</h2>
 
         <div className="today">
         <ForecastToday />
