@@ -7,6 +7,41 @@
   pointer-events: none;
 }
 
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: center;
+  align-items: flex-start;
+  }
+
+.flex-item:nth-child(1) {
+  order: 0;
+  flex: 0 1 auto;
+  align-self: auto;
+  }
+
+.flex-item:nth-child(2) {
+  order: 0;
+  flex: 0 1 auto;
+  align-self: auto;
+  }
+
+.flex-item:nth-child(3) {
+  order: 0;
+  flex: 0 1 auto;
+  align-self: auto;
+  }
+
+body {
+  background-color: #6f7a90;
+  color: white;
+  padding: 40px;
+  font-family: Arial;
+  text-align: center;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

@@ -19,9 +19,12 @@ const App = () => {
     const [windSpeed, setWindSpeed] = useState([]);
     const [sunset, setSunset] = useState('');
     const [sunrise, setSunrise] = useState('');
+    const [toggleTemp, setToggleTemp] = useState('C');
+    const [toggleWind, setToggleWind] = useState('m/s');
+    const [buttonText, setButtonText] = useState('°F');
 
 
-    const API_key = `8f04b34cdf5219c2aeb1f106bfcd6583`;
+    const API_key = `edafe1824926c93ae5f3dc0f0cb8f71c`;
     let API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}&units=${unit}`;
 
     const getCity = () => {
@@ -30,7 +33,6 @@ const App = () => {
         setLatitude(position.coords.latitude);
         setLongitude(position.coords.longitude);
     
-      
         })
           if (longitude && latitude) {
 
@@ -46,12 +48,12 @@ const App = () => {
         if (longitude && latitude && weather) { 
         const response = await axios.get(API_URL);
         setWeather([response.data]);
-         if (weather) {
-        setTemperature(Math.round(weather[0].main.temp));
-        setHumidity(weather[0].main.humidity)
-        setWindSpeed(weather[0].wind.speed.toFixed(1));
-        setSunset(weather[0].sys.sunset);
-        setSunrise(weather[0].sys.sunrise);
+         if (response.data) {
+        setTemperature(Math.round(response.data.main.temp));
+        setHumidity(response.data.main.humidity)
+        setWindSpeed(response.data.wind.speed.toFixed(1));
+        setSunset(response.data.sys.sunset);
+        setSunrise(response.data.sys.sunrise);
           
          }
        
@@ -73,50 +75,51 @@ const App = () => {
     
 
     //Toggle units
-       const changeUnit = (event) => {
-        event.preventDefault();
-/*         setUnit(event.target.value);
- */
+       const changeUnit = () => {
+
         if (unit === "metric") {
+          setToggleTemp('F');
+          setToggleWind('mph');
+          setButtonText('°C');
           setUnit('imperial');
-       
         }
    
         if (unit === "imperial") {
+          setToggleTemp('C');
+          setToggleWind('m/s');
+          setButtonText('°F');
           setUnit('metric');
-
         }
-        console.log(unit);
         }; 
 
     
         
   return (
     <div className="app">
-      <div className="container">
+      <div className="flex-container">
 
         <div className="header">
         <div>
         <div>
-            <button onClick={changeUnit}>Change unit</button>
+            <button onClick={changeUnit}>{buttonText}</button>
      
     </div>
         <h1>{location}</h1>
         </div>
       
-        <h2>{temperature}°</h2>
-        <h2>Wind: {windSpeed}</h2>
-        <h2>Humidity: {humidity}</h2>
+        <h2>{temperature}°{toggleTemp}</h2>
+        <h2>Wind: {windSpeed} {toggleWind}</h2>
+        <h2>Humidity: {humidity}%</h2>
         <h2>Sunrise: {sunrise}</h2>
         <h2>Sunset: {sunset}</h2>
        
  
         <div className="today">
-        <ForecastToday />
+       {/*  <ForecastToday /> */}
         </div>
 
         <div className="sevendays">
-        <ForecastSevenDays />
+       {/*  <ForecastSevenDays /> */}
         </div>
       </div>
     </div>
