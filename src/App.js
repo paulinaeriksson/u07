@@ -20,9 +20,9 @@ const App = () => {
     const [sunset, setSunset] = useState('');
     const [sunrise, setSunrise] = useState('');
 
+
     const API_key = `8f04b34cdf5219c2aeb1f106bfcd6583`;
     let API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}&units=${unit}`;
-    const oppositeUnit = unit === "metric" ? "imperial" : "metric";
 
     const getCity = () => {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -47,9 +47,9 @@ const App = () => {
         const response = await axios.get(API_URL);
         setWeather([response.data]);
          if (weather) {
-        setTemperature(weather[0].main.temp);
+        setTemperature(Math.round(weather[0].main.temp));
         setHumidity(weather[0].main.humidity)
-        setWindSpeed(weather[0].wind.speed);
+        setWindSpeed(weather[0].wind.speed.toFixed(1));
         setSunset(weather[0].sys.sunset);
         setSunrise(weather[0].sys.sunrise);
           
@@ -64,34 +64,33 @@ const App = () => {
       }
     } 
 
-
     useEffect(() => { 
 
         getCity();
         getWeather();
          
-     },[latitude, longitude ])
+     },[latitude, longitude, unit])
     
 
     //Toggle units
        const changeUnit = (event) => {
         event.preventDefault();
-        setUnit(event.target.value);
+/*         setUnit(event.target.value);
+ */
         if (unit === "metric") {
-          const newTemperature = temperature * 1.8 + 32;
-          setTemperature(Math.round(newTemperature));
-          setUnit(oppositeUnit);
+          setUnit('imperial');
+       
         }
    
         if (unit === "imperial") {
-          const newTemperature = ((temperature - 32) * 5) / 9;
-          setTemperature(Math.round(newTemperature));
-          setUnit(oppositeUnit);
+          setUnit('metric');
+
         }
-  
+        console.log(unit);
         }; 
 
-        console.log(unit);
+    
+        
   return (
     <div className="app">
       <div className="container">
@@ -99,16 +98,13 @@ const App = () => {
         <div className="header">
         <div>
         <div>
-            <button value="metric" onClick={changeUnit}>C</button>
-        </div>
-        <div>
-            <button value="imperial" onClick={changeUnit}>F</button>
-        </div>
+            <button onClick={changeUnit}>Change unit</button>
+     
     </div>
         <h1>{location}</h1>
         </div>
       
-        <h2>{temperature}°{unit}</h2>
+        <h2>{temperature}°</h2>
         <h2>Wind: {windSpeed}</h2>
         <h2>Humidity: {humidity}</h2>
         <h2>Sunrise: {sunrise}</h2>
@@ -123,6 +119,7 @@ const App = () => {
         <ForecastSevenDays />
         </div>
       </div>
+    </div>
     </div>
   
   );
