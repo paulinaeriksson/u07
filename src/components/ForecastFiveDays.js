@@ -1,28 +1,25 @@
-import React, { useState } from "react";
-
-
+import React from 'react';
 
 const ForecastFiveDays = () => {
- 
+
   const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+		"Sunday",
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thursday",
+		"Friday",
+		"Saturday",
+	];
 
 
+      return (
+      <div>
+        <div className="fiveDayHeader">
+         <h2>5 Days' Forecast</h2>
+        </div>
 
-  return (
-    <div>
-      <div className="fiveDayHeader">
-        <h2>5 Days' Forecast</h2>
-      </div>
-
-      <div className="fiveDayTable">
+      <div >
         <table>
           <thead>
             <tr>
@@ -35,55 +32,56 @@ const ForecastFiveDays = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">Temp.</th>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-            </tr>
+        <tr>
+          <th scope="row">Temp.</th>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          </tr>
 
-            <tr>
-              <th scope="row">Wind</th>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-            </tr>
+          <tr>
+          <th scope="row">Wind</th>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          </tr>
 
-            <tr>
-              <th scope="row">Humidity</th>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-            </tr>
+          <tr>
+          <th scope="row">Humidity</th>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          </tr>
 
-            <tr>
-              <th scope="row">Sunset</th>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-            </tr>
+          <tr>
+          <th scope="row">Sunset</th>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          </tr>
 
-            <tr>
-              <th scope="row">Sunrise</th>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-              <td>4</td>
-            </tr>
+          <tr>
+          <th scope="row">Sunrise</th>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          <td>4</td>
+          </tr>
           </tbody>
         </table>
+        </div>
       </div>
-    </div>
-  );
-};
+      );
+    }
+  
 
-export default ForecastFiveDays;
+  export default ForecastFiveDays;

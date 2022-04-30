@@ -9,8 +9,8 @@ import ForecastToday from './components/ForecastToday';
 
 const App = () => {
 
-/*     const [data, setData] = useState({}); 
- */ const [latitude, setLatitude] = useState('');
+
+    const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
     const [location, setLocation] = useState('');
     const [weather, setWeather] = useState({});
@@ -23,10 +23,14 @@ const App = () => {
     const [toggleTemp, setToggleTemp] = useState('C');
     const [toggleWind, setToggleWind] = useState('m/s');
     const [buttonText, setButtonText] = useState('°F');
+    const [weatherForecast, setWeatherForecast] = useState({});
+    const [weatherImg, setWeatherImg] = useState([{}])
 
 
     const API_key = process.env.REACT_APP_API_KEY;
     let API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}&units=${unit}`;
+    let API_URL_5 = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_key}&units=${unit}`;
+    let API_img = `http://openweathermap.org/img/wn/${weatherImg}@2x.png`;
 
     const getCity = () => {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -55,9 +59,10 @@ const App = () => {
         setWindSpeed(response.data.wind.speed.toFixed(1));
         setSunset(response.data.sys.sunset);
         setSunrise(response.data.sys.sunrise);
-          
+        setWeatherImg(response.data.weather[0].icon);
+        
+    
          }
-       console.log(response.data);
         }
         }
        catch (event) {
@@ -67,11 +72,27 @@ const App = () => {
       }
     } 
 
+    const getWeaterForecast = async () => {
+      try {
+      if (longitude && latitude) {
+      const response = await axios.get(API_URL_5);
+      setWeatherForecast([response.data]);
+
+      if (response.data) {
+      console.log(response.data)
+      }
+    }
+    } catch (err) {
+        alert(err.message);
+    }
+    }
+
 
     useEffect(() => { 
 
         getCity();
         getWeather();
+        getWeaterForecast();
        
         
          
@@ -113,13 +134,16 @@ const App = () => {
       <div>
         <h1>{location}</h1>
       </div>
-      <div>
+      <div className="today-img">
+      <img src={API_img} />
+      </div>
+      <div className="today-header">
         <h2>{temperature}°{toggleTemp}</h2>
       </div>
       </section>
       <section className='now-container'>
       <div className="now">
-        <h2>Right now</h2>
+        <h2>Weather right now in {location}</h2>
       </div>
       <section className="today-section">
       <div className="today-wind">

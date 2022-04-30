@@ -4,20 +4,21 @@
   padding: 0;
   color: #0000FF;
   line-height: 1.5;
+  
 }
 
 body {
   background-image: url("img/weather_img.jpg");
-  height: 100vh;
+  height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #6f7a90;
+  background-color: rgba(60, 60, 64, 0.473);
   color: white;
   padding: 40px;
   font-family: 'Kanit', sans-serif;
-font-family: 'Quicksand', sans-serif;
-font-family: 'Source Code Pro', monospace;
+  font-family: 'Quicksand', sans-serif;
+  font-family: 'Source Code Pro', monospace;
   text-align: center;
 }
 
@@ -40,7 +41,7 @@ button {
   height: 40px;
   margin: 10px;
   border-radius: 10%;
-  background-color: rgb(147, 145, 145);
+  background-color: rgba(60, 60, 64, 0.473);
   opacity: 90%;
   color: black;
 }
@@ -64,38 +65,52 @@ button:hover {
   margin: 0 auto;
   justify-content: stretch;
   border: 1px solid whitesmoke; 
-  padding: 20px;
-  background: grey;
-  opacity: 70%;
+  background: rgba(60, 60, 64, 0.473);
+  opacity: 95%;
   width: 80vw;
   height: 30vh;
-  border: 3px solid black;
+  border: 3px solid rgba(0, 0, 0, 0.44);
   border-radius: 7px;
-  font-size: 30px;
+  font-size: 20px;
   color: white;
   text-shadow: 2px 2px black;
 
+}
+.today-img {
+  margin: 3px;
+  padding: 0px;
 }
 
 .now-container {
   display: flex;
   flex-direction: column;
-  background: grey;
-  opacity: 70%;
+  background: rgba(60, 60, 64, 0.473);
+  opacity: 95%;
   margin: 20px;
   width: 80vw;
-  border: 3px solid black;
+  border: 3px solid rgba(0, 0, 0, 0.44);
   border-radius: 7px;
 
 }
 
 h1 {
   text-transform: uppercase;
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
 
 h2 {
   text-shadow: 2px 2px black;
 
+}
+
+.today h2 {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.today-header {
+  margin: 2px;
 }
 
 .now {
@@ -113,22 +128,22 @@ h2 {
 .hourly {
   display: flex;
   flex-direction: column;
-  background: grey;
-  opacity: 70%;
+  background: rgba(60, 60, 64, 0.473);
+  opacity: 95%;
   margin: 20px;
   width: 80vw;
-  border: 3px solid black;
+  border: 3px solid rgba(0, 0, 0, 0.44);
   border-radius: 7px;
 }
 
 .fivedays {
   display: flex;
   flex-direction: column;
-  background: grey;
-  opacity: 70%;
+  background: rgba(60, 60, 64, 0.473);
+  opacity: 95%;
   margin: 20px;
   width: 80vw;
-  border: 3px solid black;
+  border: 3px solid rgba(0, 0, 0, 0.44);
   border-radius: 7px;
 }
 
