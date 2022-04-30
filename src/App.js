@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import './App.css';
 
+
 //component imports
-import ForecastSevenDays from './components/ForecastSevenDays';
+import ForecastFiveDays from './components/ForecastFiveDays';
 import ForecastToday from './components/ForecastToday';
 
 const App = () => {
@@ -24,7 +25,7 @@ const App = () => {
     const [buttonText, setButtonText] = useState('°F');
 
 
-    const API_key = `edafe1824926c93ae5f3dc0f0cb8f71c`;
+    const API_key = process.env.REACT_APP_API_KEY;
     let API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}&units=${unit}`;
 
     const getCity = () => {
@@ -56,7 +57,7 @@ const App = () => {
         setSunrise(response.data.sys.sunrise);
           
          }
-       
+       console.log(response.data);
         }
         }
        catch (event) {
@@ -66,10 +67,13 @@ const App = () => {
       }
     } 
 
+
     useEffect(() => { 
 
         getCity();
         getWeather();
+       
+        
          
      },[latitude, longitude, unit])
     
@@ -95,36 +99,60 @@ const App = () => {
     
         
   return (
+    
     <div className="app">
       <div className="flex-container">
 
         <div className="header">
-        <div>
-        <div>
+        </div>
+        <div className='button'>
             <button onClick={changeUnit}>{buttonText}</button>
      
     </div>
+      <section className="today">
+      <div>
         <h1>{location}</h1>
-        </div>
-      
+      </div>
+      <div>
         <h2>{temperature}°{toggleTemp}</h2>
-        <h2>Wind: {windSpeed} {toggleWind}</h2>
-        <h2>Humidity: {humidity}%</h2>
-        <h2>Sunrise: {sunrise}</h2>
-        <h2>Sunset: {sunset}</h2>
+      </div>
+      </section>
+      <section className='now-container'>
+      <div className="now">
+        <h2>Right now</h2>
+      </div>
+      <section className="today-section">
+      <div className="today-wind">
+        <p>Wind:</p>
+        <p> {windSpeed} {toggleWind}</p>
+      </div>
+      <div className="today-humidity">
+        <p>Humidity:</p>
+        <p>{humidity}%</p>
+      </div>
+      <div className="today-sunrise">
+        <p>Sunrise:</p>
+        <p>{sunrise}</p>
+      </div>
+      <div className="today-sunset">
+        <p>Sunset:</p> 
+        <p>{sunset}</p>
+      </div>
+      </section>
+      </section>
+    
        
  
-        <div className="today">
-       {/*  <ForecastToday /> */}
+        <div className="hourly">
+       {  <ForecastToday />}
         </div>
 
-        <div className="sevendays">
-       {/*  <ForecastSevenDays /> */}
+        <div className="fivedays">
+       {<ForecastFiveDays />}
         </div>
-      </div>
+      
     </div>
-    </div>
-  
+  </div>
   );
 
 }

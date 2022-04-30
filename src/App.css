@@ -1,11 +1,26 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&family=Quicksand&family=Source+Code+Pro:wght@300&display=swap');
+:root {
+  margin: 0;
+  padding: 0;
+  color: #0000FF;
+  line-height: 1.5;
+}
+
+body {
+  background-image: url("img/weather_img.jpg");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #6f7a90;
+  color: white;
+  padding: 40px;
+  font-family: 'Kanit', sans-serif;
+font-family: 'Quicksand', sans-serif;
+font-family: 'Source Code Pro', monospace;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
 .flex-container {
   display: flex;
@@ -14,33 +29,110 @@
   justify-content: space-around;
   align-content: center;
   align-items: flex-start;
+  border: 2px solid whitesmoke;
+ 
   }
 
-.flex-item:nth-child(1) {
-  order: 0;
-  flex: 0 1 auto;
-  align-self: auto;
-  }
 
-.flex-item:nth-child(2) {
-  order: 0;
-  flex: 0 1 auto;
-  align-self: auto;
-  }
-
-.flex-item:nth-child(3) {
-  order: 0;
-  flex: 0 1 auto;
-  align-self: auto;
-  }
-
-body {
-  background-color: #6f7a90;
-  color: white;
-  padding: 40px;
-  font-family: Arial;
-  text-align: center;
+button {
+  padding: 10px;
+  width: 50px;
+  height: 40px;
+  margin: 10px;
+  border-radius: 10%;
+  background-color: rgb(147, 145, 145);
+  opacity: 90%;
+  color: black;
 }
+
+button:hover {
+  background-color: grey;
+}
+
+
+
+.today-section {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid whitesmoke;
+  width: 80vw;
+ 
+}
+
+.today {
+  max-width: 500px;
+  margin: 0 auto;
+  justify-content: stretch;
+  border: 1px solid whitesmoke; 
+  padding: 20px;
+  background: grey;
+  opacity: 70%;
+  width: 80vw;
+  height: 30vh;
+  border: 3px solid black;
+  border-radius: 7px;
+  font-size: 30px;
+  color: white;
+  text-shadow: 2px 2px black;
+
+}
+
+.now-container {
+  display: flex;
+  flex-direction: column;
+  background: grey;
+  opacity: 70%;
+  margin: 20px;
+  width: 80vw;
+  border: 3px solid black;
+  border-radius: 7px;
+
+}
+
+h1 {
+  text-transform: uppercase;
+}
+
+h2 {
+  text-shadow: 2px 2px black;
+
+}
+
+.now {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.today-wind, .today-humidity, .today-sunrise, .today-sunset {
+  border: 1px solid whitesmoke; border: 1px solid whitesmoke;
+  margin: 2px;
+  padding: 10px;
+  width: 80vw;
+}
+
+.hourly {
+  display: flex;
+  flex-direction: column;
+  background: grey;
+  opacity: 70%;
+  margin: 20px;
+  width: 80vw;
+  border: 3px solid black;
+  border-radius: 7px;
+}
+
+.fivedays {
+  display: flex;
+  flex-direction: column;
+  background: grey;
+  opacity: 70%;
+  margin: 20px;
+  width: 80vw;
+  border: 3px solid black;
+  border-radius: 7px;
+}
+
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -48,20 +140,6 @@ body {
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
 
 @keyframes App-logo-spin {
   from {

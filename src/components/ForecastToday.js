@@ -1,29 +1,60 @@
-import React from 'react';
+import React from "react";
 
-const ForecastToday = () => {
-
-      return (
-        <div>
-          <div>
-         <h2>Today's Forecast</h2>
-         </div>
-          <div className='temperature'>
-            <p>Temperature</p>
-          </div>
-          <div className='wind'>
-            <p>Wind</p>
-          </div>
-          <div className='humidity'>
-            <p>Humidity</p>
-          </div>
-          <div className='sunrise'>
-            <p>Sunrise</p>
-          </div>
-          <div className='sunset'>
-            <p>Sunset</p>
-          </div>
-        </div>
-      );
-    }
+const ForecastToday = (unix, timezone) => {
+ 
   
-  export default ForecastToday;
+
+  return (
+    <div>
+      <h2>Hourly</h2>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Temperature</th>
+            <th scope="col">Wind</th>
+            <th scope="col">Humidity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">10:00</th>
+            <td>4</td>
+            <td>4</td>
+            <td>4</td>
+          </tr>
+
+          <tr>
+            <th scope="row">14:00</th>
+            <td>4</td>
+            <td>4</td>
+            <td>4</td>
+          </tr>
+
+          <tr>
+            <th scope="row">18:00</th>
+            <td>4</td>
+            <td>4</td>
+            <td>4</td>
+          </tr>
+
+          <tr>
+            <th scope="row">22:00</th>
+            <td>4</td>
+            <td>4</td>
+            <td>4</td>
+          </tr>
+
+          <tr>
+            <th scope="row">02.00</th>
+            <td>4</td>
+            <td>4</td>
+            <td>4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default ForecastToday;
