@@ -23,17 +23,20 @@ const App = () => {
   const [toggleWind, setToggleWind] = useState("m/s");
   const [buttonText, setButtonText] = useState("°F");
   const [weatherImg, setWeatherImg] = useState([{}]);
+  const [date, setDate] = useState("");
+  const [daily, setDaily] = useState([]);
 
   const API_key = process.env.REACT_APP_API_KEY;
   let API_URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude={part}&appid=${API_key}&units=${unit}`;
   let API_URL_1 = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}&units=${unit}`;
-   let API_img = `http://openweathermap.org/img/wn/${weatherImg}@2x.png`;
+  let API_img = `http://openweathermap.org/img/wn/${weatherImg}@2x.png`;
   let API_URL_5 = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_key}&units=${unit}`;
 
   const getCity = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
+      console.log(latitude, longitude);
     });
     if (longitude && latitude) {
       axios.get(API_URL_1).then((response) => {
@@ -47,16 +50,17 @@ const App = () => {
       if (longitude && latitude && weather) {
         const response = await axios.get(API_URL);
         setWeather([response.data]);
-/*         console.log(weather);
- */       
-                 setTemperature(Math.round(response.data.current.temp));
-                 setHumidity(response.data.current.humidity);
-                 setWindSpeed(response.data.current.wind_speed.toFixed(1))
-                 setSunset(response.data.current.sunset);
-                 setSunrise(response.data.current.sunrise);
-                 setWeatherImg(response.data.current.weather[0].icon);
-          if (response.data) {
-        /*  setTemperature(Math.round(response.data.current.temp));
+        /*         console.log(weather);
+         */
+        setTemperature(Math.round(response.data.current.temp));
+        setHumidity(response.data.current.humidity);
+        setWindSpeed(response.data.current.wind_speed.toFixed(1));
+        setSunset(response.data.current.sunset);
+        setSunrise(response.data.current.sunrise);
+        setWeatherImg(response.data.current.weather[0].icon);
+
+        if (response.data) {
+          /*  setTemperature(Math.round(response.data.current.temp));
          setHumidity(response.data[0].current.humidity);
           setWindSpeed(response.data.wind.speed.toFixed(1));
           setSunset(response.data.sys.sunset);
@@ -74,13 +78,16 @@ const App = () => {
   const getWeatherForecast = async () => {
     try {
       if (longitude && latitude && weather) {
-        const res = await axios.get(API_URL_5);
+        const res = await axios.get(API_URL);
         setWeatherForecast([res.data]);
-        console.log(res.data.list);
-        
+        setDaily(res.data.daily);
+        console.log(res.data.daily);
+        setDate(res.data.list[0].dt);
+        console.log();
+
         /*         console.log(response.data);
          */ if (res.data) {
-        /*   setTemperature(Math.round(response.data.main.temp));
+          /*   setTemperature(Math.round(response.data.main.temp));
           setHumidity(response.data.main.humidity);
           setWindSpeed(response.data.wind.speed.toFixed(1));
           setSunset(response.data.sys.sunset);
@@ -93,15 +100,13 @@ const App = () => {
         console.log(event);
       }
     }
-  }
-
- 
+  };
 
   useEffect(() => {
     getCity();
     getWeather();
+
     getWeatherForecast();
-;
   }, [latitude, longitude, unit]);
 
   //Toggle units
@@ -120,6 +125,9 @@ const App = () => {
       setUnit("metric");
     }
   };
+/*   console.log(daily[0].temp.day);
+ */
+  const sliceDaily = daily.slice(0, 5);
 
   return (
     <div className="app">
@@ -168,16 +176,21 @@ const App = () => {
           </section>
         </section>
 
-        <section className="hourly">{/* {<ForecastToday />} */}
-        
-        
-        
+        <section className="daily">
+          {sliceDaily.map((data) => {  
+            return (
+              <section key={data.dt}>
+               
+                <h3>{data.dt}</h3>
+                <p>{data.temp.day}</p>
+                <p>{data.humidty}</p>
+                <p>{data.wind_speed}</p>
+              </section>
+            );
+          })}
         </section>
 
-        <section className="fivedays">{/* {<ForecastFiveDays />} */}
-        
-        
-        </section>
+        <section className="fivedays">{/* {<ForecastFiveDays />} */}</section>
       </div>
     </div>
   );
