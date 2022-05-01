@@ -31,8 +31,8 @@ const App = () => {
   let API_URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude={part}&appid=${API_key}&units=${unit}`;
   let API_URL_1 = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}&units=${unit}`;
   let API_img = `http://openweathermap.org/img/wn/${weatherImg}@2x.png`;
-  let API_URL_5 = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_key}&units=${unit}`;
-
+/*   let API_URL_5 = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_key}&units=${unit}`;
+ */
   const getCity = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       setLatitude(position.coords.latitude);
@@ -51,8 +51,6 @@ const App = () => {
       if (longitude && latitude && weather) {
         const response = await axios.get(API_URL);
         setWeather([response.data]);
-        /*         console.log(weather);
-         */
         setTemperature(Math.round(response.data.current.temp));
         setHumidity(response.data.current.humidity);
         setWindSpeed(response.data.current.wind_speed.toFixed(1));
@@ -181,9 +179,9 @@ const App = () => {
                 src={`http://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
                 alt={data.weather[0].main}
               />
-                <p>Temperature: {data.temp.day}</p>
-                <p>Humidity: {data.humidity}</p>
-                <p>Wind speed:{data.wind_speed}</p>
+                <p><strong>Temperature:</strong> {Math.round(data.temp.day)}°{toggleTemp}</p>
+                <p><strong>Humidity:</strong> {data.humidity}%</p>
+                <p><strong>Wind speed:</strong>{data.wind_speed.toFixed(1)}</p>
               </section>
             );
           })}
@@ -197,10 +195,14 @@ const App = () => {
               
               <section className="hourly-card" key={data.dt}>
                 <h3>{new Date(data.dt * 1000).toLocaleTimeString("en-GB", {hour: "2-digit", minute: "2-digit" })}</h3>
-                <p>Temperature: {data.temp}</p>
-                <p>Humidity:</p>
-                <p>{data.humidity}</p>
-                <p>Wind speed: {data.wind_speed}</p>
+                <img
+                src={`http://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
+                alt={data.weather[0].main}
+              />
+                <p><strong>Temperature:</strong> {Math.round(data.temp)}°{toggleTemp}</p>
+                <p><strong>Humidity:</strong></p>
+                <p>{data.humidity}%</p>
+                <p><strong>Wind speed:</strong> {data.wind_speed.toFixed(1)}</p>
               </section>
               
             );
