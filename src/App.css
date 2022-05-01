@@ -32,7 +32,6 @@ body {
   justify-content: space-around;
   align-content: center;
   align-items: flex-start;
-  border: 2px solid whitesmoke;
   box-sizing:border-box;
  
   }
@@ -58,8 +57,8 @@ button:hover {
 .today-section {
   display: flex;
   flex-direction: row;
-  /* border: 1px solid whitesmoke; */
-  width: 80vw;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
  
 }
 
@@ -67,8 +66,7 @@ button:hover {
   max-width: 500px;
   margin: 0 auto;
   justify-content: stretch;
-/*   border: 1px solid whitesmoke; */  
-background: rgba(0, 0, 0, 0.628);
+  background: rgba(0, 0, 0, 0.628);
   opacity: 95%;
   width: 80vw;
   height: 30vh;
@@ -122,11 +120,8 @@ h2 {
 }
 
 .today-wind, .today-humidity, .today-sunrise, .today-sunset {
-  /* border: 1px solid whitesmoke; border: 1px solid whitesmoke; */
-  margin: 2px;
-  padding: 10px;
-  width: 80vw;
-  flex-wrap: wrap;
+  margin: 0 1.5rem 1rem 1.5rem;
+  padding:2px;
 }
 
 .hourly {
@@ -138,6 +133,21 @@ h2 {
   width: 80vw;
   border: 3px solid rgba(0, 0, 0, 0.44);
   border-radius: 7px;
+}
+
+.card-container {
+  display: flex;
+  overflow: scroll;
+  padding: 2rem;
+}
+
+.hourly-card {
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.daily-card {
+  margin-bottom: 2rem;
 }
 
 .fivedays {

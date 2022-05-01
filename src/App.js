@@ -25,6 +25,7 @@ const App = () => {
   const [weatherImg, setWeatherImg] = useState([{}]);
   const [date, setDate] = useState("");
   const [daily, setDaily] = useState([]);
+  const [hourly, setHourly] = useState([]);
 
   const API_key = process.env.REACT_APP_API_KEY;
   let API_URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude={part}&appid=${API_key}&units=${unit}`;
@@ -81,19 +82,11 @@ const App = () => {
         const res = await axios.get(API_URL);
         setWeatherForecast([res.data]);
         setDaily(res.data.daily);
-        console.log(res.data.daily);
+        setHourly(res.data.hourly);
+        console.log(res.data.hourly);
         setDate(res.data.list[0].dt);
-        console.log();
 
-        /*         console.log(response.data);
-         */ if (res.data) {
-          /*   setTemperature(Math.round(response.data.main.temp));
-          setHumidity(response.data.main.humidity);
-          setWindSpeed(response.data.wind.speed.toFixed(1));
-          setSunset(response.data.sys.sunset);
-          setSunrise(response.data.sys.sunrise);
-          setWeatherImg(response.data.weather[0].icon); */
-        }
+      
       }
     } catch (event) {
       if (!weather) {
@@ -127,7 +120,8 @@ const App = () => {
   };
 /*   console.log(daily[0].temp.day);
  */
-  const sliceDaily = daily.slice(0, 5);
+  const sliceDaily = daily.slice(1, 6);
+  const sliceHourly = hourly.slice(0,24);
 
   return (
     <div className="app">
@@ -167,33 +161,55 @@ const App = () => {
             </div>
             <div className="today-sunrise">
               <p>Sunrise:</p>
-              <p>{sunrise}</p>
+              <p>{new Date(sunrise * 1000).toLocaleTimeString("en-GB", {hour:"2-digit", minute: "2-digit"})}</p>
             </div>
             <div className="today-sunset">
               <p>Sunset:</p>
-              <p>{sunset}</p>
+              <p>{new Date(sunset * 1000).toLocaleTimeString("en-GB", {hour:"2-digit", minute: "2-digit"})}</p>
             </div>
           </section>
         </section>
 
-        <section className="daily">
+        <section className="fivedays">
+        <h2>Upcoming Weather</h2>
           {sliceDaily.map((data) => {  
             return (
-              <section key={data.dt}>
+              <section className="daily-card" key={data.dt}>
                
-                <h3>{data.dt}</h3>
-                <p>{data.temp.day}</p>
-                <p>{data.humidty}</p>
-                <p>{data.wind_speed}</p>
+                <h3>{new Date(data.dt * 1000).toLocaleDateString("en-GB", {weekday:"long"})}</h3>
+                <img
+                src={`http://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
+                alt={data.weather[0].main}
+              />
+                <p>Temperature: {data.temp.day}</p>
+                <p>Humidity: {data.humidity}</p>
+                <p>Wind speed:{data.wind_speed}</p>
               </section>
             );
           })}
         </section>
 
-        <section className="fivedays">{/* {<ForecastFiveDays />} */}</section>
+        <section className="hourly">
+        <h2>Hour by Hour</h2>
+        <div className="card-container">
+        {sliceHourly.map((data) => {  
+            return (
+              
+              <section className="hourly-card" key={data.dt}>
+                <h3>{new Date(data.dt * 1000).toLocaleTimeString("en-GB", {hour: "2-digit", minute: "2-digit" })}</h3>
+                <p>Temperature: {data.temp}</p>
+                <p>Humidity:</p>
+                <p>{data.humidity}</p>
+                <p>Wind speed: {data.wind_speed}</p>
+              </section>
+              
+            );
+          })}
+        </div>
+        </section>
       </div>
     </div>
   );
-};
+}
 
 export default App;
