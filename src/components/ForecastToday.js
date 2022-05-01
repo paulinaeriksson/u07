@@ -1,12 +1,12 @@
 import React from "react";
 
-const ForecastToday = (unix, timezone) => {
+const ForecastToday = () => {
  
   
 
   return (
     <div>
-      <h2>Hourly</h2>
+    {/*   <h2>Hour by Hour</h2>
       <table>
         <thead>
           <tr>
@@ -52,7 +52,7 @@ const ForecastToday = (unix, timezone) => {
             <td>4</td>
           </tr>
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 };
